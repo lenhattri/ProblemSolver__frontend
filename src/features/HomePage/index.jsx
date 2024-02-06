@@ -36,6 +36,7 @@ export default function HomePage() {
         const difficultyData = await difficultyFetch(inputValue);
         console.log(difficultyData.data);
         setInputValue("");
+        //change here
         setDifficulty(difficultyData.data);
         setLoadingDifficulty(false);
       },
