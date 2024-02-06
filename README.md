@@ -18,7 +18,6 @@ npm run dev
 
 **Coding Style:** ESlint
 
-**Database:** MongoDB(First), SQL
 
 
 # CONVENTION CODE
