@@ -1,10 +1,10 @@
-
-import {
-  RouterProvider,
-} from "react-router-dom";
+import { FC } from "react";
+import { RouterProvider } from "react-router-dom";
 import viewRoutes from './ViewRoutes';
 import { ChakraProvider } from "@chakra-ui/react";
-function App() {
+import React from "react";
+
+const App: FC = () => {
   return (
     <>
       <ChakraProvider>
@@ -14,4 +14,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

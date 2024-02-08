@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+import * as React from 'react';
+
 import { useState } from "react";
 import {
   FormControl,
@@ -12,15 +14,19 @@ import {
   Avatar,
   Divider,
 } from "@chakra-ui/react";
-import hachikuji from "../../assets/hachikuji.jpg";
 import { PuffLoader } from "react-spinners";
 import difficultyFetch from "./fetch/difficultyFetch";
+import hachikuji from "../../assets/hachikuji.jpg";
+
+interface DifficultyData {
+  data: string;
+}
 
 export default function HomePage() {
-  const [inputValue, setInputValue] = useState("");
-  const [prompt, setPrompt] = useState("");
-  const [difficulty, setDifficulty] = useState({});
-  const [loadingDifficulty, setLoadingDifficulty] = useState(false);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [prompt, setPrompt] = useState<string>("");
+  const [difficulty, setDifficulty] = useState<DifficultyData | {}>({});
+  const [loadingDifficulty, setLoadingDifficulty] = useState<boolean>(false);
 
   const promptForm = {
     appName: "ProblemSolver",
@@ -29,15 +35,15 @@ export default function HomePage() {
     inputHelperText: "Hãy nhập đề bài mà bạn muốn xem lời giải!",
     buttonValue: {
       content: "Solve",
-      handleSubmit: async (event) => {
+      handleSubmit: async (event: React.FormEvent) => {
         event.preventDefault();
         setLoadingDifficulty(true);
         setPrompt(inputValue);
-        const difficultyData = await difficultyFetch(inputValue);
+        const difficultyData: DifficultyData = await difficultyFetch(inputValue);
         console.log(difficultyData.data);
         setInputValue("");
         //change here
-        setDifficulty(difficultyData.data);
+        setDifficulty(difficultyData);
         setLoadingDifficulty(false);
       },
     },
@@ -82,7 +88,7 @@ export default function HomePage() {
         </Box>
       </Box>
 
-      <Box maxW={"50%"} mx={"auto"} mt={20} spacing={5}>
+      <Box maxW={"50%"} mx={"auto"} mt={20}>
         {prompt && loadingDifficulty && <PuffLoader color="#d636a7" />}
         {prompt && !loadingDifficulty && (
           <>
@@ -100,7 +106,6 @@ export default function HomePage() {
                       : "red.700"
                   }
                 >
-                  {difficulty}
                 </Text>
               </Text>
               <Text>Đề bài: {prompt}</Text>
